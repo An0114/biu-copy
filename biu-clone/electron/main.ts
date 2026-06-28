@@ -1,6 +1,12 @@
 import {app, BrowserWindow} from "electron";
 import isDev from "electron-is-dev"
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+import { channel } from "./ipc/channel";
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 
 let mainWindown: BrowserWindow | null = null
@@ -23,8 +29,12 @@ function createWindow() {
         titleBarOverlay: false,
         trafficLightPosition: { x: 8, y: 8 },
         webPreferences: {
+            //接受暴露API文件
+            preload: path.join(__dirname, "preload.cjs"),
+            //配置安全暴露API设置
             contextIsolation: true,
             nodeIntegration: false,
+            //页面使用的开发工具：isDev
             devTools: isDev
         },
     });
@@ -43,6 +53,10 @@ function createWindow() {
             event.preventDefault();
         }
     });
+
+    // mainWindown.on("did-finish-load", () => {
+    //     mainWindown?.webContents.send(channel.app.getVersion);
+    // })
 }
 
 app.whenReady().then(() => {
