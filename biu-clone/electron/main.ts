@@ -3,7 +3,8 @@ import isDev from "electron-is-dev"
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { channel } from "./ipc/channel";
+// import { channel } from "./ipc/channel";
+// import { registerAppHandlers } from "./ipc/app";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -40,7 +41,7 @@ function createWindow() {
     });
 
     if (isDev) {
-        mainWindown.loadURL("http://localhost: 5173");
+        mainWindown.loadURL("http://localhost:5173");
         mainWindown.webContents.openDevTools();
     }
 
@@ -53,12 +54,10 @@ function createWindow() {
             event.preventDefault();
         }
     });
-
-    // mainWindown.on("did-finish-load", () => {
-    //     mainWindown?.webContents.send(channel.app.getVersion);
-    // })
 }
 
 app.whenReady().then(() => {
+    // registerAppHandlers
     createWindow();
+    
 })
