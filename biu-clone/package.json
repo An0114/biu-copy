@@ -10,9 +10,9 @@
   "scripts": {
     "postinstall": "node node_modules/electron/install.js",
     "prepare": "husky install",
-    "dev": "vite",
+    "dev": "rsbuild dev",
     "electron": "electron .",
-    "build": "vue-tsc && vite build",
+    "build": "rsbuild build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
