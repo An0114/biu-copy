@@ -7,7 +7,7 @@ import tsconfigPaths from "rollup-plugin-tsconfig-paths";
 
 import { logger } from "@rsbuild/core";
 
-import { ELECTRON_OUT_DIR } from "@shared/path";
+import { ELECTRON_OUT_DIR } from "../shared/path";
 
 const MAIN_ENTRY = path.resolve(process.cwd(), "electron/main.ts");
 const PRELOAD_ENTRY = path.resolve(process.cwd(), "electron/preload.ts");

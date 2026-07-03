@@ -6,6 +6,8 @@ import { build as electronBuild } from "electron-builder"
 export async function buildElectron() {
     await electronBuild({
         publish: "onTag",
-        config: 
+        config: {
+            appId: ""
+        }
     })
 }
