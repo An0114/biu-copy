@@ -56,7 +56,7 @@ function createWindow() {
         }
     });
 
-    mainWindown?.on('did-finish-load', () => {
+    mainWindown.webContents.on('did-finish-load', async () => {
         //方式一
         const version = app.getVersion();
         console.log("【主进程终端输出】App版本号：", version);
@@ -68,7 +68,7 @@ function createWindow() {
 
         //方式三
         (async () => {
-            const ipcVersion = await channel.app.getVersion
+            const ipcVersion = await mainWindown?.webContents.send(channel.app.getVersion);
             console.log("【IPC通道获取版本】", ipcVersion);
         })
     })
