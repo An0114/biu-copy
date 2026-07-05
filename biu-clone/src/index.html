@@ -9,5 +9,18 @@
   <body>
     <div id="root"></div>
     <!-- <script type="module" src="./index.tsx"></script> -->
+     <script>
+      async function getAppVersion() {
+        try {
+          const realVersion = await window.electron.getAppVersion();
+          console.log("App 版本号（主进程）：", realVersion);
+
+          console.log(window.electron.getAppVersion);
+        }catch(error) {
+          console.log(error)
+        }
+      }
+      window.onload = getAppVersion;
+     </script>
   </body>
 </html>
