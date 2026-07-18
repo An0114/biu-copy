@@ -1,26 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-background text-foreground">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>biu-clone</title>
   </head>
-  <body>
+  <body class="bg-background text-foreground">
     <div id="root"></div>
-    <!-- <script type="module" src="./index.tsx"></script> -->
-     <script>
-      async function getAppVersion() {
-        try {
-          const realVersion = await window.electron.getAppVersion();
-          console.log("App 版本号（主进程）：", realVersion);
-
-          console.log(window.electron.getAppVersion);
-        }catch(error) {
-          console.log(error)
-        }
-      }
-      window.onload = getAppVersion;
-     </script>
   </body>
 </html>
