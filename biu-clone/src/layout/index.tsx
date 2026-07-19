@@ -5,6 +5,9 @@ import { Outlet, useLocation} from "react-router";
 import type { FallbackProps } from "react-error-boundary";
 
 import log from "electron-log/renderer";
+import SideNav from "./side";
+import Navbar from "./navbar";
+import PlayBar from "./playbar";
 
 // import Fallback from "@/components/error-fallback";
 const Fallback = ({ resetErrorBoundary }: FallbackProps) => {return "Error"};
@@ -21,10 +24,10 @@ const Layout = () => {
             }}>
           <div className="flex h-full flex-col">
             <div className="flex min-h-0 w-full flex-1">
-                <p>Sidebar</p>
+                <SideNav />
                 <div className="flex min-h-0 min-w-0 flex-1 flex-col">
                     <div className="h-16 flex-none">
-                        <p>Navbar</p>
+                        <Navbar />
                     </div>
                     <div className="min-h-0 felx overflow-hidden">
                         <Outlet />
@@ -32,7 +35,7 @@ const Layout = () => {
                 </div>
             </div>
             <div className="relative z-50 h- w-full flex-none shadow-2xl">
-                <p>PlayBar</p>
+                <PlayBar />
             </div>
           </div>
           

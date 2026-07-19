@@ -37,8 +37,6 @@ export function App() {
           },
         }}
       />
-          <h1>hello React</h1>
-          <p>App版本号: {version}</p>
           {routeElement}
     </HeroUIProvider>
   )
