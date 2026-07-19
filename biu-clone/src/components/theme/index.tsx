@@ -5,8 +5,8 @@ import { useEffect, useMemo, useState } from "react";
 import { readableColor } from "color2k";
 import { useShallow } from "zustand/react/shallow";
 
-import { Themes } from "@/common/constants/themes";
-import { hexToHsl, resolveTheme, isHex } from "@/common/utils/color";
+import { Themes } from "@/common/constants/theme";
+import { hexToHsl, resolveTheme, isHex } from "@/common/utils/color"
 import { useSttings } from "@/store/settings";
 
 
