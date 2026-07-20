@@ -16,8 +16,30 @@ export const useSettings = create<AppSettings & SettingsActions>()(
         (set, get) => ({
             ...defaultAppSettings,
             getSettings: () => {
-                return Object.keys(defaultAppSettings)
+                return Object.keys(defaultAppSettings).reduce((acc, key) => {
+                    acc[key] = get()[key];
+                    return acc;
+                }, {} as AppSettings); 
+            },
+            update: (patch: Partial<AppSettings>) => {
+                set(patch);
+            },
+            reset: () => {
+                set(defaultAppSettings);
+            },
+        }),
+        {
+            name: "settings",
+            storage: {
+                getItem: async () => {
+                    const store = await window.electron.getAppVersion;
+
+                    //兼容之前的错误默认值
+                    if (store?.appSettings?.fontFamliy === "system-default") {
+                        
+                    }
+                }
             }
-        })
-    )
+        },
+    ),
 )
