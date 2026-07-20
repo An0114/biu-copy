@@ -1,10 +1,48 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { Button, useDisclosure } from "@heroui/react";
 import clx from "classnames";
+import { RiArrowLeftDoubleLine, RiArrowRightDoubleLine } from "@remixicon/react";
+import { useSettings } from "@/store/settings";
 
+const COLLAPSED_WIDTH = 72;
+const MIN_WIDTH = 160;
+const MAX_WIDTH = 480;
 
 const SideNav = () => {
-    // const sideMenuCollapsed = useSetings
+    const sideMenuCollapsed = useSettings(state => state.sideMenuCollapsed);
+    const sideMenuWidth = useSettings(state => state.sideMenuWidth);
+    const updateSettings = useSettings(state => state.update);
+
+    const sidebarWidth = (() => {
+        if (sideMenuCollapsed) return COLLAPSED_WIDTH;
+        const width = sideMenuWidth ?? 200;
+        if (width < MIN_WIDTH) return MIN_WIDTH;
+        if (width > MAX_WIDTH) return MAX_WIDTH;
+        return width;
+    })();
+
+    const [renderWidth] = useState(sidebarWidth);
+    const [isDragging, setIsDragging] = useState(false);
+    const isCollapsedVisual = isDragging ? renderWidth < MIN_WIDTH : sideMenuCollapsed;
+
+    const isDraggingRef = useRef(false);
+    const startXRef = useRef(0);
+    const startWidthRef = useRef(sidebarWidth);
+    const prevUserSelectRef = useRef<string | null>(null);
+
+    const onToggleCollapsed = () => {
+        updateSettings({ sideMenuCollapsed: !sideMenuCollapsed });
+    };
+
+    const onStartResize = (event: ReactMouseEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        isDraggingRef.current = true;
+        setIsDragging(true);
+        startXRef.current = event.clientX;
+        startWidthRef.current = sidebarWidth;
+        prevUserSelectRef.current = document.body.style.userSelect;
+        document.body.style.userSelect = "none";
+    };
 
     return (
         <>
@@ -14,7 +52,20 @@ const SideNav = () => {
                 })}
                 style={{width:`${200}px`}}
             >
-                <p>Sidebar</p>
+                <Button
+                    size="sm"
+                    isIconOnly
+                    fullWidth
+                    radius="none"
+                    onPress={onToggleCollapsed}
+                    className="bg-background border-divider/30 h-auto w-full flex-none border-y py-1"
+                >
+                    {isCollapsedVisual ? <RiArrowRightDoubleLine size={16}/> : <RiArrowLeftDoubleLine size={16} />}
+                </Button>
+                <div
+                    className="hover:bg-foreground/10 absolute top-0 right-0 h-full w-2 cursor-col-resize bg-transparent"
+                    onMouseDown={onStartResize}
+                />
             </div>
         </>
     )
