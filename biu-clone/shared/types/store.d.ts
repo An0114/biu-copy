@@ -1,0 +1,16 @@
+import type { StoreNameMap } from "@shared/store";
+
+
+
+declare global {
+    type MediaDownloadsData = Record<string, any>
+
+    type StoreDataMap = {
+        [StoreNameMap.AppSettings]: {appSettings: AppSettings};
+        [StoreNameMap.UserLoginInfo]: UserInfo;
+        [StoreNameMap.ShortcutSettings]: ShortcutSettings;
+        [StoreNameMap.LyricsCache]: Record<string, MusicLyrics>
+    }
+}
+
+export {};

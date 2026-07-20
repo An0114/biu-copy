@@ -9,6 +9,7 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import routes from './routes';
+import Theme from './components/theme';
 
 export function App() {
   const [version, setVersion] = useState('加载中...')
@@ -37,7 +38,8 @@ export function App() {
           },
         }}
       />
-          {routeElement}
+      {/* {routeElement} */}
+      <Theme>{routeElement}</Theme>
     </HeroUIProvider>
   )
 }

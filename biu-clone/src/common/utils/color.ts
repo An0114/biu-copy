@@ -82,11 +82,15 @@ function hexToRgb(hex: string): number[] {
 
 export function resolveTheme(theme: ThemeMode, systemTheme?: "light" | "dark") {
     if (theme === "system") {
-        return systemTheme;
+        if (systemTheme) {
+            return systemTheme;
+        }
+        if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        return "light";
     }
-    if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
+    return theme;
 }
 
 export function isHex(v?: string) {
