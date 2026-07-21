@@ -36,21 +36,21 @@ export default defineConfig({
     },
     plugins: [
         pluginReact(),
-        // pluginSvgr({
-        //     svgrOptions: {
-        //         exportType: "named",
-        //         // Enable SVGO to optimize inline SVGs
-        //         svgo: true,
-        //         svgoConfig: {
-        //             plugins: [
-        //                 {
-        //                     name: "preset-default",
-        //                     params: { overrides: { removeViewBox: false} },
-        //                 },
-        //             ],
-        //         },
-        //     },
-        // }),
+        pluginSvgr({
+            svgrOptions: {
+                exportType: "named",
+                // Enable SVGO to optimize inline SVGs
+                svgo: true,
+                svgoConfig: {
+                    plugins: [
+                        {
+                            name: "preset-default",
+                            params: { overrides: { removeViewBox: false} },
+                        },
+                    ],
+                },
+            },
+        }),
         {
             name: "electron-build",
             setup(api) {
